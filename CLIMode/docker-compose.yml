@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  survival-cli:
+    build: .
+    container_name: survival-arena-cli
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./models:/app/models:ro
+      - ./data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
