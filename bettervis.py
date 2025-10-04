@@ -1,6 +1,3 @@
-# aesthetic_multi_agent_survival.py
-# Beautiful Multi-agent survival simulation with modern UI design
-
 import pygame
 import numpy as np
 import torch
@@ -12,10 +9,8 @@ import os
 import glob
 import math
 
-# Initialize Pygame
 pygame.init()
 
-# ---------- Modern Design Constants ----------
 WINDOW_WIDTH = 1800
 WINDOW_HEIGHT = 1000
 GRID_SIZE = 12
@@ -23,38 +18,35 @@ CELL_SIZE = 45
 GRID_OFFSET_X = 80
 GRID_OFFSET_Y = 120
 
-# Modern Color Palette
-BACKGROUND = (15, 18, 25)        # Dark navy background
-SURFACE = (25, 30, 40)           # Slightly lighter surface
-ACCENT = (64, 224, 208)          # Turquoise accent
-SECONDARY = (255, 107, 107)      # Coral secondary
-TEXT_PRIMARY = (245, 245, 245)   # Near white text
-TEXT_SECONDARY = (156, 163, 175) # Gray text
-BORDER = (55, 65, 81)            # Border gray
-SUCCESS = (34, 197, 94)          # Green
-WARNING = (251, 191, 36)         # Yellow
-DANGER = (239, 68, 68)           # Red
-WHITE = (255, 255, 255)          # Pure white
-BLACK = (0, 0, 0)                # Pure black
 
-# Grid and environment colors
+BACKGROUND = (15, 18, 25)        
+SURFACE = (25, 30, 40)           
+ACCENT = (64, 224, 208)          
+SECONDARY = (255, 107, 107)      
+TEXT_PRIMARY = (245, 245, 245)  
+TEXT_SECONDARY = (156, 163, 175)
+BORDER = (55, 65, 81)           
+SUCCESS = (34, 197, 94)          
+WARNING = (251, 191, 36)       
+DANGER = (239, 68, 68)       
+WHITE = (255, 255, 255)         
+BLACK = (0, 0, 0)                
+
 UNEXPLORED = (30, 35, 45)
 EXPLORED = (45, 52, 65)
-HOME_COLOR = (147, 51, 234)      # Purple
-TREE_COLOR = (34, 197, 94)       # Green
-WATER_COLOR = (59, 130, 246)     # Blue
-FIRE_COLOR = (251, 146, 60)      # Orange
-
-# Agent colors - vibrant and distinct
+HOME_COLOR = (147, 51, 234)    
+TREE_COLOR = (34, 197, 94)      
+WATER_COLOR = (59, 130, 246)    
+FIRE_COLOR = (251, 146, 60)      
 AGENT_COLORS = [
-    (255, 71, 87),    # Red
-    (72, 207, 173),   # Teal  
-    (116, 125, 251),  # Blue
-    (255, 184, 0),    # Gold
-    (255, 105, 180),  # Hot pink
-    (154, 230, 180),  # Mint
-    (255, 159, 67),   # Orange
-    (162, 155, 254),  # Light purple
+    (255, 71, 87),    
+    (72, 207, 173),  
+    (116, 125, 251), 
+    (255, 184, 0),   
+    (255, 105, 180),  
+    (154, 230, 180),  
+    (255, 159, 67),   
+    (162, 155, 254), 
 ]
 
 SEASON_COLORS = {
@@ -64,8 +56,7 @@ SEASON_COLORS = {
     "Spring": (187, 247, 208)
 }
 
-# Typography
-FONT_PATH = None  # Will try to load a modern font
+FONT_PATH = None  
 FONT_SIZES = {
     'small': 14,
     'medium': 16,
@@ -145,7 +136,6 @@ class ParticleSystem:
             color = (*particle['color'], alpha)
             size = max(1, int(particle['size']))
             
-            # Create surface with per-pixel alpha
             surf = pygame.Surface((size * 2, size * 2), pygame.SRCALPHA)
             pygame.draw.circle(surf, color, (size, size), size)
             screen.blit(surf, (particle['x'] - size, particle['y'] - size))
@@ -153,10 +143,8 @@ class ParticleSystem:
 def draw_rounded_rect(surface, color, rect, radius=10, border_width=0, border_color=None):
     """Draw a rounded rectangle"""
     if border_width > 0 and border_color:
-        # Draw border
         pygame.draw.rect(surface, border_color, rect.inflate(border_width * 2, border_width * 2), border_radius=radius)
     
-    # Draw main rectangle
     pygame.draw.rect(surface, color, rect, border_radius=radius)
 
 def lerp_color(color1, color2, t):
@@ -180,7 +168,6 @@ def draw_gradient_rect(surface, color1, color2, rect, horizontal=True):
                            (rect.left, rect.top + i), 
                            (rect.right, rect.top + i))
 
-# ---------- Environment Classes (same logic, updated for aesthetics) ----------
 class MultiAgentSurvivalEnv:
     def __init__(self, grid_size=12, max_time=2880, randomize_resources=True):
         self.grid_size = grid_size
@@ -196,7 +183,7 @@ class MultiAgentSurvivalEnv:
         self.season_names = ["Summer", "Autumn", "Winter", "Spring"]
         self.season_durations = [2, 2, 2, 2]
 
-        self.HOME = (6, 6)  # Adjusted for larger grid
+        self.HOME = (6, 6)  
         self.TREES = []
         self.WATERS = []
         self.generate_resources()
@@ -219,7 +206,7 @@ class MultiAgentSurvivalEnv:
             'name': agent_name,
             'model_path': model_path,
             'pos': list(self.HOME),
-            'prev_pos': list(self.HOME),  # For smooth animation
+            'prev_pos': list(self.HOME),  
             'target_pos': list(self.HOME),
             'move_progress': 0.0,
             'health': 100.0,
@@ -236,10 +223,9 @@ class MultiAgentSurvivalEnv:
             'death_time': None,
             'death_cause': None,
             'color': AGENT_COLORS[agent_id % len(AGENT_COLORS)],
-            'pulse': 0.0,  # For animation
+            'pulse': 0.0,  
             'last_action': 'IDLE',
             'action_time': 0,
-            # Rest management variables (for compatibility with trained agents)
             'consecutive_rest_count': 0,
             'in_mandatory_rest': False,
             'time_since_last_rest': 0,
@@ -268,7 +254,7 @@ class MultiAgentSurvivalEnv:
         self.WATERS = []
         valid_positions = [(x, y) for x in range(self.grid_size) for y in range(self.grid_size) if (x, y) != self.HOME]
         random.shuffle(valid_positions)
-        self.TREES = valid_positions[:6]  # More resources for larger grid
+        self.TREES = valid_positions[:6] 
         self.WATERS = valid_positions[6:12]
 
     def action_space(self):
@@ -337,7 +323,6 @@ class MultiAgentSurvivalEnv:
             agent['pulse'] = 0.0
             agent['last_action'] = 'IDLE'
             agent['action_time'] = 0
-            # Rest management variables (for compatibility with trained agents)
             agent['consecutive_rest_count'] = 0
             agent['in_mandatory_rest'] = False
             agent['time_since_last_rest'] = 0
@@ -392,7 +377,6 @@ class MultiAgentSurvivalEnv:
 
         nearby_agent_density = 0.0 if self.num_agents <= 1 else nearby_agents / (self.num_agents - 1)
 
-        # State vector matching base5stage1.py structure (25 elements)
         return np.array([
             agent['pos'][0] / self.grid_size,        # 0: Agent X position
             agent['pos'][1] / self.grid_size,        # 1: Agent Y position  
@@ -446,10 +430,9 @@ class MultiAgentSurvivalEnv:
         info = f"Agent-{agent_id}: "
         current_pos = tuple(agent['pos'])
         
-        # Update animation
         agent['pulse'] += 0.1
         agent['last_action'] = action
-        agent['action_time'] = 10  # Frames to show action
+        agent['action_time'] = 10  
         
         agent['stats']['steps'] += 1
         self.update_body_temperature(agent)
@@ -466,7 +449,6 @@ class MultiAgentSurvivalEnv:
             reward -= 50
             info += "[POSITION_TIMEOUT] "
 
-        # Resource discovery with particles
         discovery_bonus = 0
         for tree_pos in self.TREES:
             if current_pos == tree_pos and tree_pos not in agent['known_tree_locations']:
@@ -489,7 +471,6 @@ class MultiAgentSurvivalEnv:
 
         agent['stats']['exploration_progress'] = len(agent['explored_positions']) / len(self.all_positions)
 
-        # Need progression (only if not resting successfully)
         if action != "REST" or not (agent['can_rest'] and agent['in_mandatory_rest']):
             season, _ = self.get_current_season()
             hunger_rate = 0.10
@@ -501,10 +482,8 @@ class MultiAgentSurvivalEnv:
             agent['hunger'] = min(100, agent['hunger'] + hunger_rate)
             agent['thirst'] = min(100, agent['thirst'] + thirst_rate)
 
-        # Update rest system (for compatibility with trained agents)
         agent['time_since_last_rest'] += 1
         
-        # Check if mandatory rest is needed
         if agent['time_since_last_rest'] >= 240 or agent['health'] < 20:  # 4 minutes = 240 seconds
             if not agent['in_mandatory_rest']:
                 agent['in_mandatory_rest'] = True
@@ -512,7 +491,6 @@ class MultiAgentSurvivalEnv:
                 agent['consecutive_rest_count'] = 0
                 info += "[MANDATORY_REST_TRIGGERED] "
 
-        # Handle actions
         if action == "REST":
             if agent['can_rest'] and agent['in_mandatory_rest']:
                 agent['consecutive_rest_count'] += 1
@@ -533,7 +511,6 @@ class MultiAgentSurvivalEnv:
             else:
                 reward -= 30
                 info += "ILLEGAL_REST"
-        # Handle movement with smooth animation
         elif action.startswith("MOVE_"):
             agent['prev_pos'] = list(agent['pos'])
             if action == "MOVE_UP" and agent['pos'][1] > 0:
@@ -609,12 +586,10 @@ class MultiAgentSurvivalEnv:
         else:
             info += "IDLE"
 
-        # Penalty for non-rest actions during mandatory rest
         if agent['in_mandatory_rest'] and action != "REST":
             reward -= 40
             info += " [MUST_REST] "
 
-        # Health penalties
         health_penalty = 0
         if agent['body_temperature'] >= 40.0:
             health_penalty += 2.5
@@ -653,19 +628,15 @@ class MultiAgentSurvivalEnv:
         valid = []
         for idx, action in enumerate(self.actions):
             if action == "REST":
-                # Only allow REST if can_rest and in_mandatory_rest
                 if agent['can_rest'] and agent['in_mandatory_rest']:
                     valid.append(idx)
             elif action == "EAT":
-                # Only allow EAT if on a tree
                 if tuple(agent['pos']) in self.TREES:
                     valid.append(idx)
             elif action == "DRINK":
-                # Only allow DRINK if on water
                 if tuple(agent['pos']) in self.WATERS:
                     valid.append(idx)
             else:
-                # All other actions are always valid
                 valid.append(idx)
         return valid
 
@@ -691,7 +662,6 @@ class MultiAgentSurvivalEnv:
         self.time += 1
         self.update_fires()
         
-        # Update action timers
         for agent in self.agents:
             if agent['action_time'] > 0:
                 agent['action_time'] -= 1
@@ -722,7 +692,6 @@ class MultiAgentSurvivalEnv:
         
         return sorted(self.agents, key=sort_key, reverse=True)
 
-# ---------- AI Agent Classes (same as before) ----------
 class DQN(nn.Module):
     def __init__(self, state_size, action_size):
         super(DQN, self).__init__()
@@ -841,21 +810,17 @@ class RLAgent:
             q_values = self.model(state_tensor)
             return torch.argmax(q_values).item()
 
-# ---------- Beautiful Multi-Agent Visualizer ----------
 class AestheticMultiAgentVisualizer:
     def __init__(self, model_files=None):
-        # Set up windowed display with resizable option
         self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.RESIZABLE)
         pygame.display.set_caption("✨ Multi-Agent Survival Arena - Windowed Mode")
         
-        # Center the window on screen (Windows/Linux)
         try:
             import os
             os.environ['SDL_VIDEO_WINDOW_POS'] = 'centered'
         except:
             pass
         
-        # Set window icon if available
         try:
             icon = pygame.Surface((32, 32))
             icon.fill(ACCENT)
@@ -865,7 +830,6 @@ class AestheticMultiAgentVisualizer:
             
         self.clock = pygame.time.Clock()
         
-        # Window state with minimum size constraints
         self.window_width = WINDOW_WIDTH
         self.window_height = WINDOW_HEIGHT
         self.min_width = 1200
@@ -887,7 +851,6 @@ class AestheticMultiAgentVisualizer:
                 print("No .pth files found. Creating random agents.")
                 self.create_random_agents(4)
 
-        # Animation and control
         self.paused = False
         self.speed = 1
         self.last_step_time = 0
@@ -895,7 +858,6 @@ class AestheticMultiAgentVisualizer:
         self.simulation_count = 0
         self.time_since_start = 0
         
-        # UI Animation states
         self.season_transition = 0.0
         self.ui_animations = {}
         
@@ -906,7 +868,6 @@ class AestheticMultiAgentVisualizer:
         
         for i, model_file in enumerate(model_files):
             name = os.path.splitext(os.path.basename(model_file))[0]
-            # Shorten long names
             if len(name) > 12:
                 name = name[:12] + "..."
             
@@ -964,7 +925,6 @@ class AestheticMultiAgentVisualizer:
                 action = 0
             actions.append(action)
 
-        # Check for discoveries and deaths for particle effects
         prev_discoveries = {}
         prev_alive = {}
         for i, agent_data in enumerate(self.env.agents):
@@ -974,9 +934,7 @@ class AestheticMultiAgentVisualizer:
         results, done = self.env.step_all_agents(actions)
         self.step_count += 1
 
-        # Add particle effects
         for i, agent_data in enumerate(self.env.agents):
-            # Discovery particles
             new_trees = len(agent_data['known_tree_locations']) - prev_discoveries[i][0]
             new_waters = len(agent_data['known_water_locations']) - prev_discoveries[i][1]
             
@@ -986,7 +944,6 @@ class AestheticMultiAgentVisualizer:
                 color = TREE_COLOR if new_trees > 0 else WATER_COLOR
                 self.particles.add_discovery_particles(x, y, color)
             
-            # Death particles
             if prev_alive[i] and not agent_data['alive']:
                 x = GRID_OFFSET_X + agent_data['pos'][0] * CELL_SIZE + CELL_SIZE//2
                 y = GRID_OFFSET_Y + agent_data['pos'][1] * CELL_SIZE + CELL_SIZE//2
@@ -999,13 +956,11 @@ class AestheticMultiAgentVisualizer:
             if event.type == pygame.QUIT:
                 return False
             elif event.type == pygame.VIDEORESIZE:
-                # Handle window resize with minimum size constraints
                 self.window_width = max(event.w, self.min_width)
                 self.window_height = max(event.h, self.min_height)
                 self.screen = pygame.display.set_mode((self.window_width, self.window_height), pygame.RESIZABLE)
                 print(f"Window resized to: {self.window_width}x{self.window_height}")
                 
-                # Optionally update scaling factors based on new window size
                 self.update_scaling_factors()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
@@ -1027,10 +982,8 @@ class AestheticMultiAgentVisualizer:
                 elif event.key == pygame.K_4:
                     self.speed = 10
                 elif event.key == pygame.K_F11:
-                    # Toggle fullscreen mode
                     self.toggle_fullscreen()
                 elif event.key == pygame.K_F10:
-                    # Reset window to default size
                     self.reset_window_size()
                 elif event.key == pygame.K_ESCAPE:
                     return False
@@ -1038,28 +991,21 @@ class AestheticMultiAgentVisualizer:
 
     def update_scaling_factors(self):
         """Update UI scaling factors based on window size"""
-        # Calculate scaling ratios
         width_ratio = self.window_width / WINDOW_WIDTH
         height_ratio = self.window_height / WINDOW_HEIGHT
         
-        # Use the smaller ratio to maintain aspect ratio
         self.scale_factor = min(width_ratio, height_ratio)
-        
-        # Update grid positioning if needed
-        # You can add more dynamic scaling logic here
         print(f"Scale factor updated to: {self.scale_factor:.2f}")
 
     def toggle_fullscreen(self):
         """Toggle between fullscreen and windowed mode"""
         if hasattr(self, 'is_fullscreen') and self.is_fullscreen:
-            # Switch to windowed mode
             self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.RESIZABLE)
             self.window_width = WINDOW_WIDTH
             self.window_height = WINDOW_HEIGHT
             self.is_fullscreen = False
             pygame.display.set_caption("✨ Multi-Agent Survival Arena - Windowed Mode")
         else:
-            # Switch to fullscreen mode
             self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
             info = pygame.display.Info()
             self.window_width = info.current_w
@@ -1081,12 +1027,10 @@ class AestheticMultiAgentVisualizer:
         season, _ = self.env.get_current_season()
         season_color = SEASON_COLORS[season]
         
-        # Draw grid background with subtle gradient
         grid_rect = pygame.Rect(GRID_OFFSET_X - 5, GRID_OFFSET_Y - 5, 
                                GRID_SIZE * CELL_SIZE + 10, GRID_SIZE * CELL_SIZE + 10)
         draw_rounded_rect(self.screen, SURFACE, grid_rect, 15, 2, BORDER)
 
-        # Draw cells with smooth transitions
         for x in range(GRID_SIZE):
             for y in range(GRID_SIZE):
                 cell_x = GRID_OFFSET_X + x * CELL_SIZE
@@ -1094,17 +1038,13 @@ class AestheticMultiAgentVisualizer:
                 cell_rect = pygame.Rect(cell_x + 1, cell_y + 1, CELL_SIZE - 2, CELL_SIZE - 2)
                 pos = (x, y)
 
-                # Cell background with exploration state
                 if pos in self.env.global_explored:
-                    # Explored cells have a subtle tint
                     cell_color = lerp_color(EXPLORED, season_color, 0.15)
                 else:
-                    # Unexplored cells are darker
                     cell_color = UNEXPLORED
                 
                 draw_rounded_rect(self.screen, cell_color, cell_rect, 8)
                 
-                # Draw resources with modern icons
                 center_x = cell_x + CELL_SIZE // 2
                 center_y = cell_y + CELL_SIZE // 2
                 
@@ -1112,14 +1052,12 @@ class AestheticMultiAgentVisualizer:
                 if pos in self.env.TREES:
                     any_knows = any(pos in agent['known_tree_locations'] for agent in self.env.agents)
                     if any_knows or pos in self.env.global_explored:
-                        # Modern tree icon
                         tree_size = 12
                         pygame.draw.circle(self.screen, TREE_COLOR, 
                                          (center_x, center_y - 3), tree_size)
                         trunk_rect = pygame.Rect(center_x - 2, center_y + 5, 4, 8)
                         pygame.draw.rect(self.screen, (101, 67, 33), trunk_rect)
                         
-                        # Subtle glow effect
                         glow_surf = pygame.Surface((tree_size * 3, tree_size * 3), pygame.SRCALPHA)
                         pygame.draw.circle(glow_surf, (*TREE_COLOR, 30), 
                                          (tree_size * 3 // 2, tree_size * 3 // 2), tree_size)
@@ -1130,7 +1068,6 @@ class AestheticMultiAgentVisualizer:
                 if pos in self.env.WATERS:
                     any_knows = any(pos in agent['known_water_locations'] for agent in self.env.agents)
                     if any_knows or pos in self.env.global_explored:
-                        # Animated water with ripples
                         water_size = 10
                         ripple_time = (self.time_since_start * 0.1) % (math.pi * 2)
                         ripple_offset = int(math.sin(ripple_time) * 2)
@@ -1140,33 +1077,28 @@ class AestheticMultiAgentVisualizer:
                         pygame.draw.circle(self.screen, lerp_color(WATER_COLOR, WHITE, 0.3), 
                                          (center_x - 2, center_y - 2), water_size//2)
 
-                # Fires with animated glow
                 if pos in self.env.active_fires:
                     fire_time = self.env.active_fires[pos]
                     intensity = min(1.0, fire_time / self.env.fire_duration)
                     
-                    # Animated fire effect
                     flicker = math.sin(self.time_since_start * 0.3) * 0.2 + 0.8
                     fire_size = int(15 * intensity * flicker)
                     
-                    # Fire gradient
                     fire_color = lerp_color(FIRE_COLOR, (255, 255, 100), flicker)
                     pygame.draw.circle(self.screen, fire_color, (center_x, center_y), fire_size)
                     pygame.draw.circle(self.screen, (255, 255, 150), (center_x, center_y), fire_size//2)
                     
-                    # Timer text with modern styling
                     timer_text = FONTS['small'].render(f"{fire_time//10}", True, TEXT_PRIMARY)
                     timer_rect = timer_text.get_rect(center=(center_x, center_y + 20))
                     draw_rounded_rect(self.screen, (0, 0, 0, 128), timer_rect.inflate(4, 2), 3)
                     self.screen.blit(timer_text, timer_rect)
 
-                # Home with elegant design
                 if pos == self.env.HOME:
                     home_size = 16
                     draw_rounded_rect(self.screen, HOME_COLOR, 
                                     pygame.Rect(center_x - home_size//2, center_y - home_size//2, 
                                                home_size, home_size), 4)
-                    # Small crown/house icon
+
                     pygame.draw.polygon(self.screen, (255, 215, 0), [
                         (center_x, center_y - 8),
                         (center_x - 6, center_y - 2),
@@ -1179,11 +1111,9 @@ class AestheticMultiAgentVisualizer:
             if not agent_data['alive']:
                 continue
             
-            # Calculate smooth position for animation
             target_x = GRID_OFFSET_X + agent_data['pos'][0] * CELL_SIZE + CELL_SIZE//2
             target_y = GRID_OFFSET_Y + agent_data['pos'][1] * CELL_SIZE + CELL_SIZE//2
             
-            # Offset agents in same cell elegantly
             agents_in_cell = [a for a in self.env.agents if tuple(a['pos']) == tuple(agent_data['pos']) and a['alive']]
             if len(agents_in_cell) > 1:
                 index_in_cell = [a['id'] for a in agents_in_cell].index(agent_data['id'])
@@ -1192,34 +1122,27 @@ class AestheticMultiAgentVisualizer:
                 target_x += int(math.cos(angle) * offset)
                 target_y += int(math.sin(angle) * offset)
             
-            # Pulsing animation based on health
             pulse = math.sin(agent_data['pulse']) * 0.1 + 0.9
             health_ratio = agent_data['health'] / 100.0
             agent_size = int(16 * health_ratio * pulse)
             
-            # Agent body with health-based opacity
             agent_color = (*agent_data['color'], int(255 * health_ratio))
             
-            # Create agent surface with alpha
             agent_surf = pygame.Surface((agent_size * 3, agent_size * 3), pygame.SRCALPHA)
             
-            # Outer glow
             glow_color = (*agent_data['color'], 60)
             pygame.draw.circle(agent_surf, glow_color, 
                              (agent_size * 3 // 2, agent_size * 3 // 2), agent_size + 6)
             
-            # Main agent body
             pygame.draw.circle(agent_surf, agent_data['color'], 
                              (agent_size * 3 // 2, agent_size * 3 // 2), agent_size)
             
-            # Inner highlight
             highlight_color = lerp_color(agent_data['color'], WHITE, 0.4)
             pygame.draw.circle(agent_surf, highlight_color, 
                              (agent_size * 3 // 2 - 2, agent_size * 3 // 2 - 2), agent_size//2)
             
             self.screen.blit(agent_surf, (target_x - agent_size * 3 // 2, target_y - agent_size * 3 // 2))
             
-            # Agent ID with stylish badge
             id_text = FONTS['small'].render(str(i), True, TEXT_PRIMARY)
             id_rect = pygame.Rect(target_x - 8, target_y - agent_size - 18, 16, 14)
             draw_rounded_rect(self.screen, agent_data['color'], id_rect, 7)
@@ -1228,13 +1151,11 @@ class AestheticMultiAgentVisualizer:
             id_text_rect = id_text.get_rect(center=id_rect.center)
             self.screen.blit(id_text, id_text_rect)
             
-            # Temperature indicator with gradient
             temp_ratio = (agent_data['body_temperature'] - 30) / 15
             temp_color = lerp_color((100, 150, 255), (255, 100, 100), temp_ratio)
             temp_rect = pygame.Rect(target_x + agent_size + 5, target_y - 6, 3, 12)
             draw_rounded_rect(self.screen, temp_color, temp_rect, 2)
             
-            # Action indicator
             if agent_data['action_time'] > 0:
                 action_text = FONTS['small'].render(agent_data['last_action'][:4], True, TEXT_SECONDARY)
                 action_rect = action_text.get_rect(center=(target_x, target_y + agent_size + 15))
@@ -1244,17 +1165,15 @@ class AestheticMultiAgentVisualizer:
 
     def draw_elegant_stats_bar(self, x, y, width, height, value, max_value, color, label, icon=None):
         """Draw an elegant progress bar with modern styling"""
-        # Background
+
         bg_rect = pygame.Rect(x, y, width, height)
         draw_rounded_rect(self.screen, (0, 0, 0, 50), bg_rect, height//2)
         
-        # Progress fill with gradient
         fill_ratio = value / max_value
         fill_width = int(width * fill_ratio)
         if fill_width > 0:
             fill_rect = pygame.Rect(x, y, fill_width, height)
             
-            # Create gradient surface
             grad_surf = pygame.Surface((fill_width, height))
             for i in range(fill_width):
                 t = i / max(fill_width, 1)
@@ -1263,14 +1182,12 @@ class AestheticMultiAgentVisualizer:
             
             grad_surf = pygame.transform.smoothscale(grad_surf, (fill_width, height))
             
-            # Apply rounded mask
             mask_surf = pygame.Surface((fill_width, height), pygame.SRCALPHA)
             draw_rounded_rect(mask_surf, (255, 255, 255), pygame.Rect(0, 0, fill_width, height), height//2)
             grad_surf.blit(mask_surf, (0, 0), special_flags=pygame.BLEND_ALPHA_SDL2)
             
             self.screen.blit(grad_surf, (x, y))
         
-        # Label with icon
         label_text = f"{label}: {value:.0f}"
         text_surf = FONTS['small'].render(label_text, True, TEXT_SECONDARY)
         self.screen.blit(text_surf, (x + width + 10, y + (height - text_surf.get_height()) // 2))
@@ -1282,26 +1199,22 @@ class AestheticMultiAgentVisualizer:
         panel_width = WINDOW_WIDTH - panel_x - 30
         panel_height = WINDOW_HEIGHT - panel_y - 80
         
-        # Main panel with subtle gradient
         panel_rect = pygame.Rect(panel_x, panel_y, panel_width, panel_height)
         draw_gradient_rect(self.screen, SURFACE, lerp_color(SURFACE, BACKGROUND, 0.3), panel_rect, False)
         draw_rounded_rect(self.screen, BACKGROUND, panel_rect, 20, 2, BORDER)
         
         y_offset = panel_y + 25
         
-        # Title with elegant typography
         title_text = FONTS['title'].render("Multi-Agent Arena", True, TEXT_PRIMARY)
         title_shadow = FONTS['title'].render("Multi-Agent Arena", True, (0, 0, 0, 60))
         self.screen.blit(title_shadow, (panel_x + 22, y_offset + 2))
         self.screen.blit(title_text, (panel_x + 20, y_offset))
         y_offset += 50
         
-        # Simulation info with modern cards
         current_day = (self.env.time // self.env.seconds_per_day) + 1
         season, _ = self.env.get_current_season()
         time_of_day = self.env.get_time_of_day()
         
-        # Season card
         season_color = SEASON_COLORS[season]
         season_rect = pygame.Rect(panel_x + 20, y_offset, panel_width - 40, 45)
         draw_gradient_rect(self.screen, season_color, lerp_color(season_color, WHITE, 0.3), season_rect)
@@ -1312,31 +1225,25 @@ class AestheticMultiAgentVisualizer:
         season_text_rect = season_surf.get_rect(center=season_rect.center)
         self.screen.blit(season_surf, season_text_rect)
         y_offset += 65
-        
-        # Living agents counter
         living_count = self.env.get_living_agents()
         status_text = f"Survivors: {living_count}/{len(self.env.agents)} • Time: {self.env.time//60}m {self.env.time%60}s"
         status_surf = FONTS['medium'].render(status_text, True, TEXT_SECONDARY)
         self.screen.blit(status_surf, (panel_x + 20, y_offset))
         y_offset += 35
-        
-        # Elegant leaderboard
+    
         leaderboard_title = FONTS['large'].render("🏆 LEADERBOARD", True, TEXT_PRIMARY)
         self.screen.blit(leaderboard_title, (panel_x + 20, y_offset))
         y_offset += 35
         
         leaderboard = self.env.get_leaderboard()
-        for rank, agent in enumerate(leaderboard[:6]):  # Show top 6
-            # Agent card
+        for rank, agent in enumerate(leaderboard[:6]):  
             card_height = 85
             card_rect = pygame.Rect(panel_x + 20, y_offset, panel_width - 40, card_height)
             
-            # Card background with agent color accent
             card_bg_color = SURFACE if agent['alive'] else lerp_color(SURFACE, BACKGROUND, 0.5)
             draw_rounded_rect(self.screen, card_bg_color, card_rect, 12, 2, 
                             agent['color'] if agent['alive'] else BORDER)
             
-            # Rank badge
             rank_size = 24
             rank_rect = pygame.Rect(card_rect.left + 15, card_rect.top + 15, rank_size, rank_size)
             rank_color = agent['color'] if agent['alive'] else BORDER
@@ -1346,12 +1253,10 @@ class AestheticMultiAgentVisualizer:
             rank_text_rect = rank_text.get_rect(center=rank_rect.center)
             self.screen.blit(rank_text, rank_text_rect)
             
-            # Agent name and status
             name_x = card_rect.left + 50
             name_text = FONTS['medium'].render(agent['name'], True, TEXT_PRIMARY)
             self.screen.blit(name_text, (name_x, card_rect.top + 12))
             
-            # Status line
             if agent['alive']:
                 status_line = f"Health: {agent['health']:.0f} • Hunger: {agent['hunger']:.0f} • Thirst: {agent['thirst']:.0f}"
                 status_color = TEXT_SECONDARY
@@ -1364,35 +1269,29 @@ class AestheticMultiAgentVisualizer:
             status_surf = FONTS['small'].render(status_line, True, status_color)
             self.screen.blit(status_surf, (name_x, card_rect.top + 32))
             
-            # Mini stats bars
             if agent['alive']:
                 bar_width = 60
                 bar_height = 4
                 bar_y = card_rect.top + 55
                 
-                # Health bar
                 health_color = lerp_color(DANGER, SUCCESS, agent['health'] / 100)
                 self.draw_elegant_stats_bar(name_x, bar_y, bar_width, bar_height, 
                                           agent['health'], 100, health_color, "")
                 
-                # Hunger bar (inverted - less is better)
                 hunger_color = lerp_color(SUCCESS, WARNING, agent['hunger'] / 100)
                 self.draw_elegant_stats_bar(name_x + bar_width + 5, bar_y, bar_width, bar_height, 
                                           100 - agent['hunger'], 100, hunger_color, "")
                 
-                # Thirst bar (inverted)
                 thirst_color = lerp_color(SUCCESS, DANGER, agent['thirst'] / 100)
                 self.draw_elegant_stats_bar(name_x + (bar_width + 5) * 2, bar_y, bar_width, bar_height, 
                                           100 - agent['thirst'], 100, thirst_color, "")
             
-            # Resource discovery stats
             resources_text = f"🌲 {agent['stats']['trees_found']}/{len(self.env.TREES)} • 💧 {agent['stats']['waters_found']}/{len(self.env.WATERS)} • 🗺️ {agent['stats']['exploration_progress']:.1%}"
             resources_surf = FONTS['small'].render(resources_text, True, TEXT_SECONDARY)
             self.screen.blit(resources_surf, (name_x, card_rect.bottom - 18))
             
             y_offset += card_height + 10
-        
-        # End game message
+
         if self.env.time >= self.env.max_time or living_count == 0:
             y_offset += 20
             end_rect = pygame.Rect(panel_x + 20, y_offset, panel_width - 40, 50)
@@ -1421,28 +1320,23 @@ class AestheticMultiAgentVisualizer:
         controls_height = 60
         controls_y = WINDOW_HEIGHT - controls_height
         controls_rect = pygame.Rect(0, controls_y, WINDOW_WIDTH, controls_height)
-        
-        # Background with subtle gradient
+
         draw_gradient_rect(self.screen, SURFACE, BACKGROUND, controls_rect)
         pygame.draw.line(self.screen, BORDER, (0, controls_y), (WINDOW_WIDTH, controls_y), 2)
         
-        # Status and controls with modern styling
         y_center = controls_y + controls_height // 2
-        
-        # Left: Status
+
         status_text = "PAUSED" if self.paused else f"PLAYING {self.speed}x"
         status_color = WARNING if self.paused else SUCCESS
         
         status_surf = FONTS['medium'].render(f"Status: {status_text}", True, status_color)
         self.screen.blit(status_surf, (20, y_center - status_surf.get_height()//2))
-        
-        # Center: Key controls
+
         controls_text = "SPACE: Play/Pause • R: Reset • N: New Environment • ↑↓: Speed • F11: Fullscreen • F10: Reset Size • ESC: Exit"
         controls_surf = FONTS['small'].render(controls_text, True, TEXT_SECONDARY)
         controls_rect = controls_surf.get_rect(center=(WINDOW_WIDTH//2, y_center))
         self.screen.blit(controls_surf, controls_rect)
-        
-        # Right: Stats
+
         stats_text = f"Step: {self.step_count} • Agents: {len(self.agents)}"
         stats_surf = FONTS['small'].render(stats_text, True, TEXT_SECONDARY)
         stats_rect = stats_surf.get_rect(right=WINDOW_WIDTH - 20, centery=y_center)
@@ -1455,42 +1349,37 @@ class AestheticMultiAgentVisualizer:
         
         while running:
             current_time = time.time()
-            self.time_since_start += 1/60  # Assuming 60 FPS
+            self.time_since_start += 1/60
             
             running = self.handle_events()
             if not running:
                 break
 
-            # Update simulation
             if not self.paused and (current_time - self.last_step_time) >= (1.0 / self.speed):
                 living_count = self.env.get_living_agents()
                 if living_count > 0 and self.env.time < self.env.max_time:
                     self.step_forward()
                 self.last_step_time = current_time
 
-            # Update particles
             self.particles.update()
 
-            # Render everything with beautiful graphics
             self.screen.fill(BACKGROUND)
-            
-            # Draw main game elements
+
             self.draw_beautiful_grid()
             self.draw_beautiful_agents()
+
             
-            # Draw particles over agents
             self.particles.draw(self.screen)
+
             
-            # Draw UI
             self.draw_modern_info_panel()
             self.draw_modern_controls()
 
             pygame.display.flip()
-            self.clock.tick(60)  # Smooth 60 FPS
+            self.clock.tick(60) 
 
         pygame.quit()
 
-# ---------- Main Function ----------
 def main():
     """Main function to start the aesthetic multi-agent simulation"""
     import sys
@@ -1517,4 +1406,5 @@ def main():
         pygame.quit()
 
 if __name__ == "__main__":
+
     main()
