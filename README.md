@@ -1,4 +1,4 @@
-# Apex Survival Arina
+# Apex Survival Arena
 
 Picture this, you've carefully selected your champion from a roster of uniquely trained AI survivalists, placed your strategic bid, and now it's time to sit back, relax, and watch your agent navigate through ever changing wilderness environments. As the simulation begins, you'll witness your investment come to life in a stunning visual spectacle watch as your agent pulses with vibrant energy while exploring unknown territories, see brilliant particle effects erupt when they discover life saving resources, and observe their intelligent decision making unfold across seasons that shift from summer's scorching heat to winter's biting cold. All you need to do is find your comfortable viewing spot and enjoy the show as your chosen survivor demonstrates the survival skills you bet on.
 
