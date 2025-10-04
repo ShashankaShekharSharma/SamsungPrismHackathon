@@ -1,4 +1,4 @@
-# SamsungPrismHackathon
+# Apex Survival Arina
 
 Step into a living, breathing wilderness where you become the master observer of intelligent AI agents battling for survival. Watch as colorful, pulsating avatars navigate a beautifully crafted 12x12 grid world, each driven by their own neural network brain, making life-or-death decisions in real-time.
 
