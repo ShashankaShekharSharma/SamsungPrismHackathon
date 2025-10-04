@@ -1889,7 +1889,7 @@ def show_splash_screen(screen, duration=3):
 
         # Try loading logo
         try:
-            logo = pygame.image.load('apxsurvival.jpg')
+            logo = pygame.image.load('logo.jpg')
             logo = pygame.transform.smoothscale(logo, (400, 400))
         except:
             logo = None

@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  survival-game:
+    build: .
+    container_name: ai-survival-arena
+    volumes:
+      - ./models:/app/models:ro
+      - ./data:/app/data
+      - ./logo.jpg:/app/logo.jpg:ro
+      - ./apxsurvival.jpg:/app/apxsurvival.jpg:ro
+    ports:
+      - "5900:5900"  # VNC port for viewing
+    environment:
+      - DISPLAY=:99
+      - SDL_VIDEODRIVER=x11
+    stdin_open: true
+    tty: true
