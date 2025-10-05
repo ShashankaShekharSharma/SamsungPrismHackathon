@@ -41,9 +41,10 @@
 ## Quick Start
 
 ### Windows (.exe)
-1. Download `APEX-AI-Survival-Arena.exe` from [Releases](https://github.com/ShashankaShekharSharma/SamsungPrismHackathon/releases)
-2. Double-click to run
-3. If Windows Defender blocks: Click "More info" → "Run anyway"
+1. Download the game files from the link provided in the [Releases](https://github.com/ShashankaShekharSharma/SamsungPrismHackathon/releases).
+2. Extract the files to your current directory.
+3. Double-click to run on the final.exe.
+4. If Windows Defender blocks: Click "More info" → "Run anyway".
 
 ### macOS (.dmg)
 
