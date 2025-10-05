@@ -23,8 +23,6 @@
 
 [![APEX AI Survival Arena Demo](https://img.shields.io/badge/▶️_Watch_Demo-YouTube-red?style=for-the-badge&logo=youtube)](YOUR_YOUTUBE_LINK_HERE)
 
-> Replace `YOUR_YOUTUBE_LINK_HERE` with your actual YouTube video link
-
 ---
 
 ## Overview
