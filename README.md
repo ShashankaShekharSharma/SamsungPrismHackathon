@@ -41,16 +41,22 @@
 3. If Windows Defender blocks: Click "More info" → "Run anyway"
 
 ### macOS (.dmg)
-```bash
-# Install dependencies
+# Step 1: Download the DMG file
+# Go to the "Releases" section of this repository and download:
+# APEX_AI_Survival_Arena.dmg
+# Place it in your current working directory before proceeding.
+
+# Step 2: Install dependencies
 pip install pygame==2.5.2 numpy==1.24.3 torch==2.1.0
 
-# Mount and install
-hdiutil attach ./APEX-AI-Survival-Arena.dmg
+# Step 3: Mount and install the app
+hdiutil attach ./APEX_AI_Survival_Arena.dmg
 cp -R "/Volumes/APEX AI Survival Arena/APEX AI Survival Arena.app" /Applications/
 xattr -rd com.apple.quarantine "/Applications/APEX AI Survival Arena.app"
+
+# Step 4: Launch the game
 open "/Applications/APEX AI Survival Arena.app"
-```
+
 
 ### CLI Docker (Cross-Platform)
 ```bash
