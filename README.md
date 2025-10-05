@@ -1,6 +1,7 @@
-# APEX AI SURVIVAL ARENA
 
 <div align="center">
+    
+# APEX AI SURVIVAL ARENA
 
 <div align="center">
 <img src="logo.jpg" alt="APEX AI Survival Arena" width="400"/>
