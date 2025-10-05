@@ -170,7 +170,7 @@ Contributions welcome! Areas for improvement:
 - Hrishikesh Sarma
 - Pratik Gandhi
 - Hemant Thakkar
-- Shashanka Shekhar Sarma
+- Shashanka Shekhar Sharma
 - Shubam Sarawagi
 
 **Technologies:** PyTorch, Pygame, NumPy
