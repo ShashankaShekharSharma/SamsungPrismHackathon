@@ -108,23 +108,6 @@ python enhanced_aesthetic_survival_betting.py
 
 ---
 
-## Architecture
-
-```
-Game State Manager (Credits & Persistence)
-    │
-    ├── Home Screen (Agent Selection & Betting)
-    │
-    ├── Main Visualizer
-    │   ├── Multi-Agent Environment (Grid World, Seasons, Resources)
-    │   ├── RL Agent System (DQN Inference)
-    │   └── Particle Effects & UI Rendering
-    │
-    └── Results Screen (Statistics & Outcomes)
-```
-
----
-
 ## Troubleshooting
 
 **Windows:** If SmartScreen blocks, click "More info" → "Run anyway"
