@@ -1,4 +1,4 @@
-# 🎮 APEX AI SURVIVAL ARENA
+# APEX AI SURVIVAL ARENA
 
 <div align="center">
 
@@ -11,29 +11,27 @@
 
 *Where AI agents fight for survival, and you bet on the champion*
 
-**[▶️ Watch Demo on YouTube](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)**
-
 </div>
 
 ---
 
-## 🎯 Overview
+## Overview
 
 **APEX AI SURVIVAL ARENA** combines deep reinforcement learning with survival mechanics and betting gameplay. AI agents powered by Deep Q-Networks compete in a dynamic environment with seasons, resources, and temperature regulation. Bet on your favorite agent and watch them battle for survival!
 
 **Key Features:**
-- 🤖 8+ unique AI agent personalities with DQN architecture
-- 🌍 Dynamic 12×12 grid world with seasons, day/night cycles, and resource management
-- 💰 Betting system with persistent credit economy (start with 1000 credits)
-- 🎨 Modern UI with particle effects, animations, and smooth transitions
-- 📊 Real-time leaderboard and comprehensive statistics
+- 8+ unique AI agent personalities with DQN architecture
+- Dynamic 12×12 grid world with seasons, day/night cycles, and resource management
+- Betting system with persistent credit economy (start with 1000 credits)
+- Modern UI with particle effects, animations, and smooth transitions
+- Real-time leaderboard and comprehensive statistics
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Windows (.exe)
-1. Download `APEX-AI-Survival-Arena.exe` from [Releases](https://github.com/yourusername/apex-ai-survival-arena/releases)
+1. Download `APEX-AI-Survival-Arena.exe` from [Releases](https://github.com/ShashankaShekharSharma/SamsungPrismHackathon/releases)
 2. Double-click to run
 3. If Windows Defender blocks: Click "More info" → "Run anyway"
 
@@ -51,22 +49,22 @@ open "/Applications/APEX AI Survival Arena.app"
 
 ### CLI Docker (Cross-Platform)
 ```bash
-git clone https://github.com/yourusername/apex-ai-survival-arena.git
-cd apex-ai-survival-arena/CLIMode
+git clone https://github.com/ShashankaShekharSharma/SamsungPrismHackathon.git
+cd SamsungPrismHackathon/CLIMode
 docker-compose run --rm --build survival-cli
 ```
 
 ### From Source
 ```bash
-git clone https://github.com/yourusername/apex-ai-survival-arena.git
-cd apex-ai-survival-arena
+git clone https://github.com/ShashankaShekharSharma/SamsungPrismHackathon.git
+cd SamsungPrismHackathon
 pip install pygame==2.5.2 numpy==1.24.3 torch==2.1.0
 python enhanced_aesthetic_survival_betting.py
 ```
 
 ---
 
-## 🎮 Gameplay
+## Gameplay
 
 **Controls:**
 - `SPACE` - Play/Pause
@@ -83,7 +81,7 @@ python enhanced_aesthetic_survival_betting.py
 
 ---
 
-## 🧠 Technical Details
+## Technical Details
 
 ### Agent System
 - **Architecture:** 5-layer DQN (512→256→128→64 neurons)
@@ -105,7 +103,7 @@ python enhanced_aesthetic_survival_betting.py
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 Game State Manager (Credits & Persistence)
@@ -122,7 +120,7 @@ Game State Manager (Credits & Persistence)
 
 ---
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 **Windows:** If SmartScreen blocks, click "More info" → "Run anyway"
 
@@ -140,7 +138,7 @@ sudo usermod -aG docker $USER  # Then logout/login
 
 ---
 
-## 📦 System Requirements
+## System Requirements
 
 **Minimum:**
 - CPU: Intel i3 or equivalent
@@ -154,7 +152,7 @@ sudo usermod -aG docker $USER  # Then logout/login
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions welcome! Areas for improvement:
 - Additional agent architectures (CNNs, Transformers)
@@ -164,13 +162,20 @@ Contributions welcome! Areas for improvement:
 
 ---
 
-## 📜 License
+## License
 
 MIT License - See `LICENSE` file for details
 
 ---
 
-## 👥 Credits
+## Credits
+
+**Team Formula-4-1:**
+- Hrishikesh Sarma
+- Pratik Gandhi
+- Hemant Thakkar
+- Shashanka Shekhar Sarma
+- Shubam Sarawagi
 
 **Technologies:** PyTorch, Pygame, NumPy
 
@@ -180,10 +185,10 @@ MIT License - See `LICENSE` file for details
 
 <div align="center">
 
-**⭐ Star this repo if you enjoyed it! ⭐**
+**Star this repo if you enjoyed it!**
 
-**Contact:** [Your GitHub] | [Your Email]
+**GitHub:** [ShashankaShekharSharma/SamsungPrismHackathon](https://github.com/ShashankaShekharSharma/SamsungPrismHackathon)
 
-Made with ❤️ for AI & Gaming
+Made with passion for Samsung PRISM Hackathon
 
 </div>
