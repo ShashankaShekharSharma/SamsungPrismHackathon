@@ -2,6 +2,10 @@
 
 <div align="center">
 
+<div align="center">
+<img src="logo.jpg" alt="APEX AI Survival Arena" width="400"/>
+</div>
+
 **Multi-Agent Reinforcement Learning Survival Simulation with Betting Mechanics**
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
