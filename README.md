@@ -40,8 +40,6 @@
 
 ## 🎬 Video Demo
 
-[![APEX AI Survival Arena - Full Gameplay](https://img.youtube.com/vi/YOUR_VIDEO_ID/maxresdefault.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
-
 **[▶️ Watch Full Gameplay Demo on YouTube](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)**
 
 See the arena in action! This video showcases:
@@ -51,7 +49,7 @@ See the arena in action! This video showcases:
 - 📊 Real-time statistics and leaderboard updates
 - 🎨 Modern UI with particle effects and animations
 
-**Duration:** ~10 minutes | **Recommended Quality:** 1080p60
+**Duration:** ~6 minutes 
 
 ---
 
