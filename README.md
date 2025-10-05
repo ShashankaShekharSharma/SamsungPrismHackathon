@@ -1,11 +1,8 @@
-
 <div align="center">
     
 # APEX AI SURVIVAL ARENA
 
-<div align="center">
 <img src="logo.jpg" alt="APEX AI Survival Arena" width="400"/>
-</div>
 
 **Multi-Agent Reinforcement Learning Survival Simulation with Betting Mechanics**
 
@@ -41,22 +38,25 @@
 3. If Windows Defender blocks: Click "More info" → "Run anyway"
 
 ### macOS (.dmg)
-# Step 1: Download the DMG file
-# Go to the "Releases" section of this repository and download:
-# APEX_AI_Survival_Arena.dmg
-# Place it in your current working directory before proceeding.
 
-# Step 2: Install dependencies
+**Step 1:** Download the DMG file from [Releases](https://github.com/ShashankaShekharSharma/SamsungPrismHackathon/releases) and place it in your current directory.
+
+**Step 2:** Install dependencies:
+```bash
 pip install pygame==2.5.2 numpy==1.24.3 torch==2.1.0
+```
 
-# Step 3: Mount and install the app
+**Step 3:** Mount and install the app:
+```bash
 hdiutil attach ./APEX_AI_Survival_Arena.dmg
 cp -R "/Volumes/APEX AI Survival Arena/APEX AI Survival Arena.app" /Applications/
 xattr -rd com.apple.quarantine "/Applications/APEX AI Survival Arena.app"
+```
 
-# Step 4: Launch the game
+**Step 4:** Launch the game:
+```bash
 open "/Applications/APEX AI Survival Arena.app"
-
+```
 
 ### CLI Docker (Cross-Platform)
 ```bash
@@ -77,14 +77,14 @@ python enhanced_aesthetic_survival_betting.py
 
 ## Gameplay
 
-**Controls:**
+### Controls
 - `SPACE` - Play/Pause
 - `↑/↓` - Adjust speed (1-100×)
 - `F` - Focus mode (highlight bet agent)
 - `F11` - Fullscreen
 - `Mouse Wheel` - Scroll leaderboard
 
-**How to Play:**
+### How to Play
 1. Select an agent from 8+ trained models
 2. Choose bet amount (50-1000 credits)
 3. Watch agents compete for survival
@@ -134,12 +134,12 @@ sudo usermod -aG docker $USER  # Then logout/login
 
 ## System Requirements
 
-**Minimum:**
+### Minimum
 - CPU: Intel i3 or equivalent
 - RAM: 4GB
 - OS: Windows 10/11, macOS 10.14+, Linux
 
-**Recommended:**
+### Recommended
 - CPU: Intel i5+
 - RAM: 8GB
 - GPU: GTX 1050+ (optional, for faster inference)
@@ -171,10 +171,10 @@ Contributions welcome! Areas for improvement:
 
 <div align="center">
 
-**Star this repo if you enjoyed it!**
+**⭐ Star this repo if you enjoyed it! ⭐**
 
 **GitHub:** [ShashankaShekharSharma/SamsungPrismHackathon](https://github.com/ShashankaShekharSharma/SamsungPrismHackathon)
 
-Made with passion for Samsung PRISM Hackathon
+*Made with passion for Samsung PRISM Hackathon*
 
 </div>
