@@ -17,6 +17,16 @@
 
 ---
 
+## 🎥 Video Demo
+
+**Watch the game in action:**
+
+[![APEX AI Survival Arena Demo](https://img.shields.io/badge/▶️_Watch_Demo-YouTube-red?style=for-the-badge&logo=youtube)](YOUR_YOUTUBE_LINK_HERE)
+
+> Replace `YOUR_YOUTUBE_LINK_HERE` with your actual YouTube video link
+
+---
+
 ## Overview
 
 **APEX AI SURVIVAL ARENA** combines deep reinforcement learning with survival mechanics and betting gameplay. AI agents powered by Deep Q-Networks compete in a dynamic environment with seasons, resources, and temperature regulation. Bet on your favorite agent and watch them battle for survival!
