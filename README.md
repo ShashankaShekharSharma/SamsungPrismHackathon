@@ -162,12 +162,6 @@ Contributions welcome! Areas for improvement:
 
 ---
 
-## License
-
-MIT License - See `LICENSE` file for details
-
----
-
 ## Credits
 
 **Team Formula-4-1:**
@@ -178,8 +172,6 @@ MIT License - See `LICENSE` file for details
 - Shubam Sarawagi
 
 **Technologies:** PyTorch, Pygame, NumPy
-
-**Inspired by:** DeepMind's AlphaGo, OpenAI Multi-Agent Systems, Don't Starve
 
 ---
 
