@@ -3,7 +3,8 @@
 <div align="center">
 
 <div align="center">
-<img src="logo.jpg" alt="APEX AI Survival Arena Logo" width="200" style="border-radius: 50%;"/>
+<img src="logo.jpg" alt="APEX AI Survival Arena" width="400"/>
+</div>
 
 **Multi-Agent Reinforcement Learning Survival Simulation with Betting Mechanics**
 
