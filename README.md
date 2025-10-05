@@ -56,7 +56,7 @@ pip install pygame==2.5.2 numpy==1.24.3 torch==2.1.0
 
 **Step 3:** Mount and install the app:
 ```bash
-hdiutil attach ./APEX_AI_Survival_Arena.dmg
+hdiutil attach ./APEX AI Survival_Arena.dmg
 cp -R "/Volumes/APEX AI Survival Arena/APEX AI Survival Arena.app" /Applications/
 xattr -rd com.apple.quarantine "/Applications/APEX AI Survival Arena.app"
 ```
@@ -78,7 +78,7 @@ docker-compose run --rm --build survival-cli
 git clone https://github.com/ShashankaShekharSharma/SamsungPrismHackathon.git
 cd SamsungPrismHackathon
 pip install pygame==2.5.2 numpy==1.24.3 torch==2.1.0
-python enhanced_aesthetic_survival_betting.py
+python cli_survival_arena.py
 ```
 
 ---
