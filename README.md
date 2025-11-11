@@ -169,7 +169,7 @@ Contributions welcome! Areas for improvement:
 
 **Team Formula-4-1:**
 - Hrishikesh Sarma
-- Pratik Gandhi
+- Prateek Sinha
 - Hemant Thakkar
 - Shashanka Shekhar Sharma
 - Shubam Sarawagi
